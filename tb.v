@@ -12,59 +12,79 @@
 `define SIM_CYCLE 5000
 //`timescale 100s/1s
 module tb;
-reg   clean;
-reg			clk;
+reg   load;
+reg			clock;
 reg		[3:0]	state;
-reg		  X0;
-reg		  X1;
-reg		  X2;
-reg		 	X3;
-wire    lock;
-wire    unlock;
-wire	  A1;
-wire	  A2;
-wire	 	A3;
-wire	 	A4;
+reg		  in1;
+reg		  in2;
+reg		  in3;
+reg		 	in4;
+reg		 	in5;
+reg		 	in6;
+reg		 	in7;
+reg		 	in8;
+wire   out1;
+wire   out2;
+wire	  out3;
+wire	  out4;
+wire	 	out5;
+wire	 	out6;
+wire	 	out7;
+wire	 	out8;
+
 
 initial begin
   state=4'b0000;
-  clean=0;
-  X0 = 0;
-  X1 = 0;
-  X2 = 0;
-  X3 = 0;
+  load = 0;
+  in1 = 0;
+  in2 = 0;
+  in3 = 0;
+  in4 = 0;
+  in5 = 0;
+  in6 = 0;
+  in7 = 0;
+  in8 = 0;
   #30
-    X0<=0;     X1<=0;     X2<=1;     X3<=0; 
+    in1<=1;     in2<=0;     in3<=1;     in4<=0; 
   #40
-    X0<=0;     X1<=1;     X2<=0;     X3<=0;
+    in5<=0;     in6<=1;     in7<=0;     in8<=1;
   #40
-    X0<=1;     X1<=0;     X2<=0;     X3<=0;
+    load<=1;
+  #40  
+    load<=0;
   #40
-    X0<=0;     X1<=1;     X2<=0;     X3<=0;
+    in1<=1;     in2<=1;     in3<=1;     in4<=0;
   #40
-    X0<=0;     X1<=0;     X2<=1;     X3<=0;
+    in5<=0;     in6<=0;     in7<=1;     in8<=0;
   #40
-    X0<=0;     X1<=0;     X2<=0;     X3<=1;
+    load<=1;
+  #40  
+    load<=0;
 end
 always begin
   //@(posedge clk);
-    # 20 clk = 1; clean=1;
-    # 20 clk = ~clk;
+    # 20 clock = 1; 
+    # 20 clock = ~clock;
 end
-block1 m(
-	.X0(X0),
-	.X1(X1),
-	.X2(X2),
-	.X3(X3),
-	.clk(clk),
-	.clean(clean),
-	.A0(A0),
-	.A1(A1),
-	.A2(A2),
-	.A3(A3),
-	.A4(A4),
-	.lock(lock),
-	.unlock(unlock)
+a1021 m(
+	.in1(in1),
+	.in2(in2),
+	.in3(in3),
+	.in4(in4),
+	.in5(in5),
+	.in6(in6),
+	.in7(in7),
+	.in8(in8),
+	.clock(clock),
+	.load(load),
+	.out1(out1),
+	.out2(out2),
+	.out3(out3),
+	.out4(out4),
+	.out5(out5),
+	.out6(out6),
+	.out7(out7),
+	.out8(out8)
 );
 endmodule
 
